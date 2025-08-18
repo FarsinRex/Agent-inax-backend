@@ -1,0 +1,40 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Logs & databases
+*.log
+*.sqlite3
+*.db
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE / editor configs
+.vscode/
+.idea/
+*.swp
+
+# Environment & secrets
+*.env
+.env.*
+secrets.json
+
+# Byte-compiled / profiling
+*.prof
+*.out

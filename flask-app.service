@@ -1,0 +1,16 @@
+[Unit]
+Description=Flask App
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/flask-app
+Environment="PATH=/var/www/flask-app/venv/bin"
+Environment="FLASK_ENV=production"
+ExecStart=/var/www/flask-app/venv/bin/gunicorn --workers 4 --bind unix:/var/www/flask-app/flask-app.sock -m 007 app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

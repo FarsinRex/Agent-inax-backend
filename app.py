@@ -1,16 +1,19 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
-from dotenv import load_dotenv
 import requests
+from config import config
 
 app = Flask(__name__)
 CORS(app)
 
-load_dotenv()
+# Load configuration
+config_name = os.getenv('FLASK_ENV', 'default')
+app.config.from_object(config[config_name])
+config[config_name].init_app(app)
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_API_KEY = app.config['GROQ_API_KEY']
+API_URL = app.config['API_URL']
 
 HEADERS = {
     "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -78,6 +81,11 @@ if __name__ == "__main__":
     print("Starting Flask server...")
     print(f"API Key present: {'Yes' if GROQ_API_KEY else 'No'}")
     print("Chat endpoint available at: http://localhost:5000/chat")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    
+    # Get port from environment variable or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    
+    app.run(host='0.0.0.0', port=port, debug=debug)
 
     

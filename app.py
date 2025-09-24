@@ -5,7 +5,7 @@ import requests
 from config import config
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://inax-ai.vercel.app"}})
 
 # Load configuration
 config_name = os.getenv('FLASK_ENV', 'default')

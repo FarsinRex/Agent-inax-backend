@@ -38,3 +38,4 @@ secrets.json
 # Byte-compiled / profiling
 *.prof
 *.out
+.env.example
